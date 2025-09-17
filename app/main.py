@@ -12,6 +12,7 @@ from app.routers import profile
 from app.routers import projects
 from app.routers import achievements
 from app.routers import forms
+from app.routers import ideas
 
 app = FastAPI()
 
@@ -40,6 +41,7 @@ app.include_router(projects.router)
 app.include_router(achievements.router)
 app.include_router(user_router.router)
 app.include_router(forms.router)
+app.include_router(ideas.router)
 
 
 @app.get("/")
