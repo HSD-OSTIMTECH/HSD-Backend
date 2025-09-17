@@ -5,16 +5,20 @@ from app.routers import user_router
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+import os
 from app.routers import example
 from app.routers import announcements
 from app.routers import profile
 from app.routers import projects
 from app.routers import achievements
+from app.routers import forms
 
 app = FastAPI()
 
-# Statik dosyaları sun
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
+# Statik dosyaları sun (klasör varsa)
+static_dir = "app/static"
+if os.path.isdir(static_dir):
+    app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 @app.on_event("startup")
 def on_startup():
@@ -35,6 +39,7 @@ app.include_router(profile.router)
 app.include_router(projects.router)
 app.include_router(achievements.router)
 app.include_router(user_router.router)
+app.include_router(forms.router)
 
 
 @app.get("/")
